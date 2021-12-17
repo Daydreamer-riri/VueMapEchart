@@ -1,0 +1,44 @@
+{
+	"markers": [
+		{
+			"lng": 114.367542,
+			"lat": 34.801092,
+			"id": 1,
+			"name": "李华",
+			"show": false,
+			"placeName": "龙亭区"
+		},
+		{
+			"lng": 114.367542,
+			"lat": 34.801092,
+			"id": 2,
+			"name": "1",
+			"show": false,
+			"placeName": "龙亭区"
+		},
+		{
+			"lng": 114.367542,
+			"lat": 34.801092,
+			"id": 3,
+			"name": "2",
+			"show": false,
+			"placeName": "龙亭区"
+		},
+		{
+			"lng": 114.367542,
+			"lat": 34.801092,
+			"id": 4,
+			"name": "3",
+			"show": false,
+			"placeName": "龙亭区"
+		},
+		{
+			"lng": 114.336642,
+			"lat": 34.814957,
+			"id": 5,
+			"name": "李红",
+			"show": false,
+			"placeName": "鼓楼区"
+		}
+	]
+}
