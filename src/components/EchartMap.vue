@@ -1,3 +1,4 @@
+/*eslint-disable*/
 <template>
 	<div class="EchartMap">
 		<div id="emap" style="width: 100% ;height:600px;"></div>
@@ -5,6 +6,7 @@
 </template>
 <script>
 //import { loadBMap } from "../map.js";
+// import { mapGetters } from "vuex";
 
 var geoCoordMap = {
 	其他: [114.339916, 34.799949],
@@ -33,49 +35,22 @@ export default {
 	data() {
 		var data = [];
 		var option;
+		var dataCount = [];
 		return {
 			option,
 			data,
+			dataCount,
 		};
 	},
 	props: {
 		Date: String,
 	},
 	methods: {
-		getData(date) {
-			var dataOfTheDay = JSON.parse(localStorage.getItem(date));
-			var longting = 0;
-			var shunhe = 0;
-			var gulou = 0;
-			var xiangfu = 0;
-			var el = 0;
-			if (dataOfTheDay != null) {
-				dataOfTheDay.forEach((e) => {
-					if (e.placeName == "龙亭区") {
-						longting += 1;
-					}
-					if (e.placeName == "顺和回族区") {
-						shunhe += 1;
-					}
-					if (e.placeName == "鼓楼区") {
-						gulou += 1;
-					}
-					if (e.placeName == "祥符区") {
-						xiangfu += 1;
-					}
-					if (e.placeName == "其他") {
-						el += 1;
-					}
-				});
-			}
-			this.data = [
-				{ name: "龙亭区", value: longting },
-				{ name: "顺和回族区", value: shunhe },
-				{ name: "鼓楼区", value: gulou },
-				{ name: "祥符区", value: xiangfu },
-				{ name: "其他", value: el },
-			];
+		// eslint-disable-next-line
+		getDataCount(date) {
+			this.dataCount = this.$store.getters.dataCount(date);
 		},
+
 		myEcharts() {
 			// 基于准备好的dom，初始化echarts实例
 			require("echarts/extension/bmap/bmap");
@@ -83,11 +58,11 @@ export default {
 			var myChart = echarts.init(document.getElementById("emap"));
 
 			this.option = {
-				title: {
-					text: "疫情风险等级",
-					subtext: "",
-					left: "center",
-				},
+				// title: {
+				// 	text: "疫情风险等级",
+				// 	subtext: "",
+				// 	left: "center",
+				// },
 				tooltip: {
 					trigger: "item",
 				},
@@ -217,7 +192,7 @@ export default {
 						name: "else",
 						type: "scatter",
 						coordinateSystem: "bmap",
-						data: convertData(this.data),
+						data: convertData(this.dataCount),
 						symbolSize: function(val) {
 							return val[2] * 15;
 						},
@@ -241,7 +216,7 @@ export default {
 						coordinateSystem: "bmap",
 						color: "rgba(245, 108, 108, 0.8)",
 						data: convertData(
-							this.data
+							this.dataCount
 								.sort(function(a, b) {
 									return b.value - a.value;
 								})
@@ -275,14 +250,15 @@ export default {
 		},
 	},
 	mounted() {
-		this.getData(this.Date);
+		this.getDataCount(this.Date);
 		this.myEcharts();
 	},
 	watch: {
 		Date: function(newVal) {
-			this.getData(newVal);
+			this.getDataCount(newVal);
 			this.myEcharts();
 		},
 	},
+	computed: {},
 };
 </script>

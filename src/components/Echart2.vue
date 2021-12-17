@@ -97,11 +97,11 @@ export default {
 			el = [0, 0, 0, 0, 0, 0, 0];
 			var date = new Date();
 			for (let index = 0; index < 7; index++) {
-				var dataOfTheDay = JSON.parse(
-					localStorage.getItem(date.Format("yyyy-MM-dd"))
+				var dataOfTheDay = this.$store.state.datas.find(
+					(data) => data.date == date.Format("yyyy-MM-dd")
 				);
 				if (dataOfTheDay != null) {
-					dataOfTheDay.forEach((e) => {
+					dataOfTheDay.data.forEach((e) => {
 						if (e.placeName == "龙亭区") {
 							longting[index] += 1;
 						}
